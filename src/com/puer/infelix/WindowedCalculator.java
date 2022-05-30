@@ -22,16 +22,15 @@ public class WindowedCalculator {
         plusButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (firstNumberTextField.getText().isEmpty() || secondNumberTextField.getText().isEmpty()) {
-                    JOptionPane.showMessageDialog(panel, "Please, enter numbers.", "ERROR", JOptionPane.ERROR_MESSAGE);
-                } else if (firstNumberTextField.getText().matches("[0-9.]+") && secondNumberTextField.getText().matches("[0-9.]+")) {
+                try {
                     float firstNumber = Float.parseFloat(firstNumberTextField.getText());
                     float secondNumber = Float.parseFloat(secondNumberTextField.getText());
                     resultTextField.setText(String.valueOf(firstNumber + secondNumber));
                     charLabel.setText("+");
                     equalsLabel.setText("=");
-                } else {
-                    JOptionPane.showMessageDialog(panel, "Please, enter valid numbers.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+                catch (Exception ex) {
+                    JOptionPane.showMessageDialog(panel, "Error was occurred: " +ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -39,33 +38,31 @@ public class WindowedCalculator {
         minusButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (firstNumberTextField.getText().isEmpty() || secondNumberTextField.getText().isEmpty()) {
-                    JOptionPane.showMessageDialog(panel, "Please, enter numbers.", "ERROR", JOptionPane.ERROR_MESSAGE);
-                } else if (firstNumberTextField.getText().matches("[0-9.]+") && secondNumberTextField.getText().matches("[0-9.]+")) {
+                try {
                     float firstNumber = Float.parseFloat(firstNumberTextField.getText());
                     float secondNumber = Float.parseFloat(secondNumberTextField.getText());
                     resultTextField.setText(String.valueOf(firstNumber - secondNumber));
                     charLabel.setText("-");
                     equalsLabel.setText("=");
-                } else {
-                    JOptionPane.showMessageDialog(panel, "Please, enter valid numbers.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+                catch (Exception ex) {
+                    JOptionPane.showMessageDialog(panel, "Error was occurred: " +ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
 
         multiplyButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                if (firstNumberTextField.getText().isEmpty() || secondNumberTextField.getText().isEmpty()) {
-                    JOptionPane.showMessageDialog(panel, "Please, enter numbers.", "ERROR", JOptionPane.ERROR_MESSAGE);
-                } else if (firstNumberTextField.getText().matches("[0-9.]+") && secondNumberTextField.getText().matches("[0-9.]+")) {
+            public void actionPerformed(ActionEvent e){
+                try {
                     float firstNumber = Float.parseFloat(firstNumberTextField.getText());
                     float secondNumber = Float.parseFloat(secondNumberTextField.getText());
                     resultTextField.setText(String.valueOf(firstNumber * secondNumber));
                     charLabel.setText("*");
                     equalsLabel.setText("=");
-                } else {
-                    JOptionPane.showMessageDialog(panel, "Please, enter valid numbers.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+                catch (Exception ex) {
+                    JOptionPane.showMessageDialog(panel, "Error was occurred: " +ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -73,17 +70,25 @@ public class WindowedCalculator {
         divideButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (firstNumberTextField.getText().isEmpty() || secondNumberTextField.getText().isEmpty()) {
-                    JOptionPane.showMessageDialog(panel, "Please, enter numbers.", "ERROR", JOptionPane.ERROR_MESSAGE);
-                } else if (firstNumberTextField.getText().matches("[0-9.]+") && secondNumberTextField.getText().matches("[0-9.]+")) {
+                try {
                     float firstNumber = Float.parseFloat(firstNumberTextField.getText());
                     float secondNumber = Float.parseFloat(secondNumberTextField.getText());
-                    resultTextField.setText(String.valueOf(firstNumber / secondNumber));
+
+                    float result;
+                    if (secondNumber != 0) {
+                        result = firstNumber / secondNumber;
+                    } else {
+                        int zero = Integer.parseInt(secondNumberTextField.getText());
+                        result = (int) firstNumber / zero;
+                    }
+                    resultTextField.setText(String.valueOf(result));
                     charLabel.setText("/");
                     equalsLabel.setText("=");
-                } else {
-                    JOptionPane.showMessageDialog(panel, "Please, enter valid numbers.", "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
+                catch (Exception ex) {
+                    JOptionPane.showMessageDialog(panel, "Error was occurred: " +ex.getMessage() , "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+
             }
         });
 
